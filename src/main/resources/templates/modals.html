@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<!--Band-->
+<span th:fragment="bandButton">
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myBandModal">
+                Band
+            </button>
+</span>
+<!--Album-->
+<span th:fragment="albumButton">
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myAlbumModal">
+               Album
+            </button>
+</span>
+<!--Song-->
+<span th:fragment="songButton">
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#mySongModal">
+                Song
+            </button>
+</span>
+<!--Band Modal-->
+<div th:fragment="modalBand" >
+    <!-- Modal -->
+
+    <div class="modal fade" id="myBandModal" tabindex="-1" role="dialog" aria-labelledby="myBandModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myBandModalLabel">Add Band</h4>
+                </div>
+                <div class="modal-body">
+                    <!--Form for new movie-->
+                    <form action="/createBand" method="post">
+                        <div class="form-group">
+                            <label for="title">Name</label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Title"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="origin">Origin</label>
+                            <input type="text" class="form-control" id="origin" name="origin" placeholder="Origin"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="bandArt">Band Art</label>
+                            <input type="url" class="form-control" id="bandArt" name="bandArt" placeholder="Band Art"/>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add Band</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--Album Modal-->
+<div th:fragment="modalAlbum" >
+    <!-- Modal -->
+
+    <div class="modal fade" id="myAlbumModal" tabindex="-1" role="dialog" aria-labelledby="myAlbumModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myAlbumModalLabel">Add Album</h4>
+                </div>
+                <div class="modal-body">
+                    <!--Form for new movie-->
+                    <form action="/createAlbum" method="post">
+                        <div class="form-group">
+                            <label for="title">Name</label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Title"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="albumArt">Album Art</label>
+                            <input type="url" class="form-control" id="albumArt" name="albumArt" placeholder="Album Art"/>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label for="releaseDate">Release Date</label>
+                                <input type="date" class="form-control" id="releaseDate" name="releaseDate" placeholder="Release Date"/>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="band">Band</label>
+                                <select name="band" id="band" class="form-control">
+                                    <option value="">--------</option>
+                                    <option th:value="${band.id}" th:each="band : ${band}" th:text="${band.bandTitle}"></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add Album</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--Song Modal-->
+<div th:fragment="modalSong" >
+    <!-- Modal -->
+
+    <div class="modal fade" id="mySongModal" tabindex="-1" role="dialog" aria-labelledby="mySongModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="mySongModalLabel">Add Song</h4>
+                </div>
+                <div class="modal-body">
+                    <!--Form for new movie-->
+                    <form action="/createSong" method="post">
+                        <div class="form-group">
+                            <label for="title">Song Title</label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Title"/>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="releaseDate">Release Date</label>
+                                <input type="date" class="form-control" id="releaseDate" name="releaseDate" placeholder="Release Date"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="genre">Genre</label>
+                                <select name="genre" id="genre" multiple="multiple">
+                                    <option value="" disabled="disabled" selected="selected">Choose Genre</option>
+                                    <option value="Alternative">Alternative</option>
+                                    <option value="Anime">Anime</option>
+                                    <option value="Blues">Blues</option>
+                                    <option value="Children's Music">Children's Music</option>
+                                    <option value="Classical">Classical</option>
+                                    <option value="Comedy">Comedy</option>
+                                    <option value="Commercial">Commercial</option>
+                                    <option value="Country">Country</option>
+                                    <option value="Dance">Dance</option>
+                                    <option value="Disney">Disney</option>
+                                    <option value="Easy Listening">Easy Listening</option>
+                                    <option value="Electronic">Electronic</option>
+                                    <option value="Enka">Enka</option>
+                                    <option value="French Pop">French Pop</option>
+                                    <option value="German Folk">German Folk</option>
+                                    <option value="German Pop">German Pop</option>
+                                    <option value="Fitness/Workout">Fitness/Workout</option>
+                                    <option value="Hip-Hop/Rap">Hip-Hop/Rap</option>
+                                    <option value="Holiday">Holiday</option>
+                                    <option value="Indie Pop">Indie Pop</option>
+                                    <option value="Industrial">Industrial</option>
+                                    <option value="Inspirational-Christian-Gospel">Inspiraiton-Christian-Gospel</option>
+                                    <option value="Instrumental">Instrumental</option>
+                                    <option value="J-Pop">J-Pop</option>
+                                    <option value="Jazz">Jazz</option>
+                                    <option value="K-Pop">K-Pop</option>
+                                    <option value="Karaoke">karaoke</option>
+                                    <option value="Kayokyoku">Kayokyoku</option>
+                                    <option value="Latin">Latin</option>
+                                    <option value="New Age">New Age</option>
+                                    <option value="Opera">Opera</option>
+                                    <option value="Pop">Pop</option>
+                                    <option value="R&amp;B&#047;Soul">R&amp;B&#047;Soul</option>
+                                    <option value="Reggae">Reggae</option>
+                                    <option value="Rock">Rock</option>
+                                    <option value="Singer/Songwriter">Singer/Songwriter</option>
+                                    <option value="Soundtrack">Soundtrack</option>
+                                    <option value="Spoken Work">Spoken Word</option>
+                                    <option value="Tex-Mex/Tejano">Tex-Mex/Tejano</option>
+                                    <option value="Vocal">Vocal</option>
+                                    <option value="World">World</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label for="album">Album</label>
+                                <select name="album" id="album" class="form-control">
+                                    <option value="">--------</option>
+                                    <option th:value="${album.id}" th:each="album : ${album}" th:text="${album.albumTitle}"></option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label for="band">Band</label>
+                                <select name="band" id="band" class="form-control">
+                                    <option value="">--------</option>
+                                    <option th:value="${band.id}" th:each="band : ${band}" th:text="${band.bandTitle}"></option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add Song</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

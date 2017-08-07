@@ -11,10 +11,10 @@ public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String album_title;
-    private int order;
-    private String album_art_url;
-    private Date release_date;
+    private String albumTitle;
+    private int albumOrder;
+    private String albumArtUrl;
+    private Date releaseDate;
 
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
     private List<Song> songs;
@@ -33,36 +33,36 @@ public class Album {
         this.id = id;
     }
 
-    public String getAlbum_title() {
-        return album_title;
+    public String getAlbumTitle() {
+        return albumTitle;
     }
 
-    public void setAlbum_title(String album_title) {
-        this.album_title = album_title;
+    public void setAlbumTitle(String albumTitle) {
+        this.albumTitle = albumTitle;
     }
 
-    public int getOrder() {
-        return order;
+    public int getAlbumOrder() {
+        return albumOrder;
     }
 
-    public void setOrder(int order) {
-        this.order = order;
+    public void setAlbumOrder(int albumOrder) {
+        this.albumOrder = albumOrder;
     }
 
-    public String getAlbum_art_url() {
-        return album_art_url;
+    public String getAlbumArtUrl() {
+        return albumArtUrl;
     }
 
-    public void setAlbum_art_url(String album_art_url) {
-        this.album_art_url = album_art_url;
+    public void setAlbumArtUrl(String albumArtUrl) {
+        this.albumArtUrl = albumArtUrl;
     }
 
-    public Date getRelease_date() {
-        return release_date;
+    public Date getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setRelease_date(Date release_date) {
-        this.release_date = release_date;
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public List<Song> getSongs() {

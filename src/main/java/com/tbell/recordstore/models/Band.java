@@ -10,8 +10,9 @@ public class Band {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private long band_title;
+    private String bandTitle;
     private String origin;
+    private String bandArtUrl;
 
     @OneToMany(mappedBy = "band", cascade = CascadeType.ALL)
     private List<Album> albums;
@@ -29,12 +30,12 @@ public class Band {
         this.id = id;
     }
 
-    public long getBand_title() {
-        return band_title;
+    public String getBandTitle() {
+        return bandTitle;
     }
 
-    public void setBand_title(long band_title) {
-        this.band_title = band_title;
+    public void setBandTitle(String bandTitle) {
+        this.bandTitle = bandTitle;
     }
 
     public String getOrigin() {
@@ -59,5 +60,13 @@ public class Band {
 
     public void setSongs(List<Song> songs) {
         this.songs = songs;
+    }
+
+    public String getBandArtUrl() {
+        return bandArtUrl;
+    }
+
+    public void setBandArtUrl(String bandArtUrl) {
+        this.bandArtUrl = bandArtUrl;
     }
 }

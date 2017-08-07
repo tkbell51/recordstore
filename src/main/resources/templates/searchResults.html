@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <span th:include="includes :: css"></span>
+</head>
+<body>
+<div th:include="navbar :: nav"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div  th:each="band : ${band}">
+                <img th:src="${band.bandArtUrl}" th:alt="${band.bandTitle}" />
+                <h1 th:text="${band.bandTitle}"></h1>
+                <p th:text="${band.origin}"></p>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <h2>Albums</h2>
+            <hr/>
+            <div class="" th:each="album : ${album}">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img th:src="${album.albumArtUrl}" th:alt="${album.albumTitle}"/>
+                        <h3 th:text="${album.albumTitle}"></h3>
+                        <p th:text="${album.releaseDate}"></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>albums songs</p>
+                    </div>
+
+                </div>
+                <hr/>
+            </div>
+            <h2>Songs</h2>
+            <hr/>
+            <div class="" th:each="song : ${song}">
+
+                <p th:text="${song.songTitle}"></p>
+                <hr/>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+<span th:include="includes :: js"></span>
+</body>
+</html>

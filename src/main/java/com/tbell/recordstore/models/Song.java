@@ -10,9 +10,9 @@ public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String song_title;
+    private String songTitle;
     private String genre;
-    private Date song_release_date;
+    private Date songReleaseDate;
 
     @ManyToOne
     @JoinColumn(name = "album_id")
@@ -32,12 +32,12 @@ public class Song {
         this.id = id;
     }
 
-    public String getSong_title() {
-        return song_title;
+    public String getSongTitle() {
+        return songTitle;
     }
 
-    public void setSong_title(String song_title) {
-        this.song_title = song_title;
+    public void setSongTitle(String songTitle) {
+        this.songTitle = songTitle;
     }
 
     public String getGenre() {
@@ -64,11 +64,11 @@ public class Song {
         this.band = band;
     }
 
-    public Date getSong_release_date() {
-        return song_release_date;
+    public Date getSongReleaseDate() {
+        return songReleaseDate;
     }
 
-    public void setSong_release_date(Date song_release_date) {
-        this.song_release_date = song_release_date;
+    public void setSongReleaseDate(Date songReleaseDate) {
+        this.songReleaseDate = songReleaseDate;
     }
 }

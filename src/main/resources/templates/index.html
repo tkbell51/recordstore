@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Record Store Home</title>
+    <span th:include="includes :: css"></span>
+</head>
+<body class="home">
+<div th:include="navbar :: nav"></div>
+<div class="container">
+    <div class="jumbotron">
+        <h1>Welcome to Bell Records</h1>
+        <div class="row">
+            <form th:action="@{/searchResults}" class="col-md-4" method="post">
+                <div class="input-group">
+                    <input name="bandTitle" type="text" class="form-control"/>
+                    <div class="input-group-btn">
+                        <button class="btn" type="submit">Search Band</button>
+                    </div>
+                </div>
+            </form>
+            <form th:action="@{/searchResults}" class="col-md-4" method="post">
+                <div class="input-group">
+                    <input name="albumTitle" type="text" class="form-control"/>
+                    <div class="input-group-btn">
+                        <button class="btn" type="submit">Search Album</button>
+                    </div>
+                </div>
+            </form>
+            <form th:action="@{/searchResults}" class="col-md-4" method="post">
+                <div class="input-group">
+                    <input name="songTitle" type="text" class="form-control"/>
+                    <div class="input-group-btn">
+                        <button class="btn" type="submit">Search Album</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--<form>-->
+            <!--<div class="input-group">-->
+                <!--<input id="search-type" type="hidden" name="type" value="band" />-->
+                <!--<input type="text" class="form-control" name="search" placeholder="Search by Band" />-->
+                <!--<div class="input-group-btn">-->
+                    <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select<span class="caret"></span></button>-->
+                    <!--<ul id="test-menu" class="dropdown-menu dropdown-menu-right">-->
+                        <!--<li><a href="">Band</a></li>-->
+                        <!--<li><a href="">Album</a></li>-->
+                        <!--<li><a href="">Song</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+
+            <!--</div>-->
+
+
+        <!--</form>-->
+
+
+    </div>
+
+
+</div>
+
+<span th:include="includes :: js"></span>
+<!--Help from Dan Dietz!!!-->
+<script>
+    $('#test-menu a').click(function(e){
+        e.preventDefault();
+        var $link = $(this);
+        $('#test-button').text($link.text());
+        // update hidden input also
+         $('#search-type').val($link.text())
+    });
+</script>
+</body>
+</html>
