@@ -11,7 +11,7 @@
     <div class="jumbotron">
         <h1>Welcome to Bell Records</h1>
         <div class="row">
-            <form th:action="@{/searchResults}" class="col-md-4" method="post">
+            <form th:action="@{/searchBand}" class="col-md-6" method="post">
                 <div class="input-group">
                     <input name="bandTitle" type="text" class="form-control"/>
                     <div class="input-group-btn">
@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </form>
-            <form th:action="@{/searchResults}" class="col-md-4" method="post">
+            <form th:action="@{/searchAlbum}" class="col-md-6" method="post">
                 <div class="input-group">
                     <input name="albumTitle" type="text" class="form-control"/>
                     <div class="input-group-btn">
@@ -27,14 +27,7 @@
                     </div>
                 </div>
             </form>
-            <form th:action="@{/searchResults}" class="col-md-4" method="post">
-                <div class="input-group">
-                    <input name="songTitle" type="text" class="form-control"/>
-                    <div class="input-group-btn">
-                        <button class="btn" type="submit">Search Album</button>
-                    </div>
-                </div>
-            </form>
+
         </div>
         <!--<form>-->
             <!--<div class="input-group">-->

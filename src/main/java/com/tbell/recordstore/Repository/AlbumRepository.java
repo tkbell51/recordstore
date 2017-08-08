@@ -2,6 +2,7 @@ package com.tbell.recordstore.Repository;
 
 import com.tbell.recordstore.models.Album;
 import com.tbell.recordstore.models.Band;
+import com.tbell.recordstore.models.Song;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +16,5 @@ public interface AlbumRepository extends CrudRepository<Album,Long> {
 
     List<Album> findAllByBand(Band band);
 
+    Album findByBand(Band band);
 }

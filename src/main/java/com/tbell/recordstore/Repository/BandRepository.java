@@ -10,4 +10,6 @@ import java.util.List;
 public interface BandRepository extends CrudRepository<Band, Long>{
 
     Band findByBandTitle (String bandTitle);
+
+
 }
