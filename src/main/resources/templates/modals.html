@@ -7,14 +7,14 @@
 <body>
 <!--Band Button-->
 <span th:fragment="bandButton">
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myBandModal">
+    <button type="button" class="band btn btn-default btn-lg" data-toggle="modal" data-target="#myBandModal">
                 Band
             </button>
 </span>
 <!--Band Edit Button-->
 <span th:fragment="bandEditButton">
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myBandEditModal">
-                Edit Band <span class="glyphicon glyphicon-edit"></span>
+                Edit
             </button>
 </span>
 <!--Band Delete Button-->
@@ -27,14 +27,14 @@
 
 <!--Album Button-->
 <span th:fragment="albumButton">
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myAlbumModal">
+    <button type="button" class="album btn btn-default btn-lg" data-toggle="modal" data-target="#myAlbumModal">
                Album
             </button>
 </span>
 <!--Album Edit Button-->
 <span th:fragment="albumEditButton">
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myAlbumEditModal">
-                Edit Band <span class="glyphicon glyphicon-edit"></span>
+                Edit
             </button>
 </span>
 <!--Album Delete Button-->
@@ -46,14 +46,14 @@
 
 <!--Song Button-->
 <span th:fragment="songButton">
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#mySongModal">
+    <button type="button" class="song btn btn-default btn-lg" data-toggle="modal" data-target="#mySongModal">
                 Song
             </button>
 </span>
 <!--Song Edit Button-->
 <span th:fragment="songEditButton">
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#mySongEditModal">
-                Edit Band <span class="glyphicon glyphicon-edit"></span>
+                Edit
             </button>
 </span>
 <!--Song Delete Button-->
@@ -114,7 +114,7 @@
                 </div>
                 <div class="modal-body">
                     <!--Form for new movie-->
-                    <form th:action="'/band/' + @{${bandId}} + '/edit/'" method="post" th:object="${band}">
+                    <form th:action="'/band/edit/' + @{${bandId}} + '/'" method="post" >
                         <div class="form-group">
                             <label for="title">Name</label>
                             <input type="text" class="form-control" id="title" name="title"  th:value="${band.bandTitle}"/>
@@ -153,7 +153,7 @@
                 <div class="modal-body">
                     <!--Form for new movie-->
                     <h2>Are You Sure?</h2>
-                    <form th:action="'/band/' + @{${bandId}} + '/delete/'" method="post">
+                    <form th:action="'/band/delete/' + @{${bandId}} + '/'" method="post">
                             <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                             <button type="submit" class="btn btn-primary">Yes</button>
                     </form>
@@ -219,23 +219,23 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myAlbumEditModalLabel" th:text="Update + ' ' + ${albumTitle}"></h4>
+                    <h4 class="modal-title" id="myAlbumEditModalLabel" th:text="Update + ' ' + ${album.albumTitle}"></h4>
                 </div>
                 <div class="modal-body">
                     <!--Form for new movie-->
-                    <form th:action="'/album/' + @{${albumId}} + '/edit/'" method="post">
+                    <form th:action="'/album/edit/' + @{${albumId}} +'/'" method="post" >
                         <div class="form-group">
                             <label for="title">Name</label>
-                            <input type="text" class="form-control" id="title" name="title" th:value="${albumTitle}"/>
+                            <input type="text" class="form-control" id="title" name="title" th:value="${album.albumTitle}"/>
                         </div>
                         <div class="form-group">
                             <label for="albumArt">Album Art</label>
-                            <input type="url" class="form-control" id="albumArt" name="albumArt" th:value="${albumArtUrl}"/>
+                            <input type="url" class="form-control" id="albumArt" name="albumArt" th:value="${album.albumArtUrl}"/>
                         </div>
                         <div class="row">
                             <div class="col-md-6 form-group">
                                 <label for="releaseDate">Release Date</label>
-                                <input type="date" class="form-control" id="releaseDate" name="releaseDate" th:value="${releaseDate}"/>
+                                <input type="date" class="form-control" id="releaseDate" name="releaseDate" th:value="${album.releaseDate}"/>
                             </div>
                             <div class="col-md-6 form-group">
                                 <label for="band">Band</label>
@@ -271,7 +271,7 @@
                 <div class="modal-body">
                     <!--Form for new movie-->
                     <h2>Are You Sure?</h2>
-                    <form th:action="'/album/' + @{${albumId}} + '/delete/'" method="post">
+                    <form th:action="'/album/delete/' + @{${album.id}} + '/'" th:method="post">
                         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                         <button type="submit" class="btn btn-primary">Yes</button>
                     </form>
@@ -392,19 +392,19 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="mySongEditModalLabel">Add Song</h4>
+                    <h4 class="modal-title" id="mySongEditModalLabel" th:text="Update + ${song.songTitle}"></h4>
                 </div>
                 <div class="modal-body">
                     <!--Form for new movie-->
-                    <form th:action="'/song/' + @{${songId}} + '/edit/'" method="post">
+                    <form th:action="'/song/edit/' + @{${songId}} + '/'" method="post">
                         <div class="form-group">
                             <label for="title">Song Title</label>
-                            <input type="text" class="form-control" id="title" name="title" th:value="${songTitle}"/>
+                            <input type="text" class="form-control" id="title" name="title" th:value="${song.songTitle}"/>
                         </div>
                         <div class="row">
                             <div class="col-md-6 form-group">
                                 <label for="releaseDate">Release Date</label>
-                                <input type="date" class="form-control" id="releaseDate" name="releaseDate" th:value="${songReleaseDate}"/>
+                                <input type="date" class="form-control" id="releaseDate" name="releaseDate" th:value="${song.songReleaseDate}"/>
                             </div>
                             <div class=" col-md-6 form-group">
                                 <label for="genre">Genre</label>
@@ -499,7 +499,7 @@
                 <div class="modal-body">
                     <!--Form for new movie-->
                     <h2>Are You Sure?</h2>
-                    <form th:action="'/song/' + @{${songId}} + '/delete/'" method="post">
+                    <form th:action="'/song/delete/' + @{${songId}} + '/'" method="post">
                         <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                         <button type="submit" class="btn btn-primary">Yes</button>
                     </form>

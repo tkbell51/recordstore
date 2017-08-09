@@ -17,4 +17,6 @@ public interface AlbumRepository extends CrudRepository<Album,Long> {
     List<Album> findAllByBand(Band band);
 
     Album findByBand(Band band);
+
+//    Iterable<Song> findAllSongs(Iterable<Album> albums);
 }

@@ -8,59 +8,88 @@
 <body>
 <div th:include="navbar :: nav"></div>
 <div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <div  th:each="band : ${band}">
-                <a th:href="'/band/' + @{${band.id}}"><img th:src="${band.bandArtUrl}" th:alt="${band.bandTitle}" /></a>
-                <h1 th:text="${band.bandTitle}"></h1>
-                <p th:text="${band.origin}"></p>
-                <div class="row">
-                    <span class="pull-right" th:include="modals :: bandEditButton"></span>
-                    <span class="pull-right" th:include="modals :: bandDeleteButton"></span>
-                </div>
-            </div>
+
+
+    <div  th:each="band : ${band}">
+        <div class="page-header">
+            <h1 class="text-center" th:text="${band.bandTitle}"></h1>
         </div>
-        <div class="col-md-9">
-            <h2>Albums</h2>
-            <hr/>
-
-                <div class="row">
-                    <div class="col-md-6" th:each="album : ${album}">
-                        <a th:href="'/album/' + @{${album.id}}"><img th:src="${album.albumArtUrl}" th:alt="${album.albumTitle}"/></a>
-                        <h3 th:text="${album.albumTitle}"></h3>
-                        <p th:text="${album.releaseDate}"></p>
-                        <div class="row">
-                            <span class="pull-right" th:include="modals :: albumEditButton"></span>
-                            <span class="pull-right" th:include="modals :: albumDeleteButton"></span>
-                        </div>
-                    </div>
+        <a  th:href="'/band/' + @{${band.id}}"><img class="center-block" th:src="${band.bandArtUrl}" th:alt="${band.bandTitle}" /></a>
+        <p th:text="${band.origin}"></p>
+        <div class="row">
+            <span  th:include="modals :: bandEditButton"></span>
+            <span  th:include="modals :: bandDeleteButton"></span>
+        </div>
+    </div>
 
 
-                </div>
+        <div class="page-header">
+            <h2 class="">Albums</h2>
+        </div>
+
+
+        <div class="row">
+            <div class=" col-md-4" th:each="album : ${album}">
+                <a th:href="'/album/' + @{${album.id}}"><img th:src="${album.albumArtUrl}" th:alt="${album.albumTitle}"/></a>
+                <h3 th:text="${album.albumTitle}"></h3>
+                <p th:text="${album.releaseDate}"></p>
 
             </div>
-            <h2>Songs</h2>
-            <hr/>
-            <div class="" th:each="song : ${song}">
-                <a th:href="'/song'+ @{${song.id}}" th:text="${song.songTitle}"></a>
-                <p class="pull-right" th:text="${song.genre}"></p>
-                <div class="row">
+
+        </div>
+
+
+    <div class="page-header">
+        <h1>Songs</h1>
+    </div>
+
+    <div class="" >
+        <table class="table">
+            <thead>
+            <th>Song Title</th>
+            <th >
+                <span class="pull-right col-md-offset-3">Album title</span>
+            </th>
+            <th >
+                <span class="pull-right">Genre</span>
+            </th>
+            </thead>
+            <tr th:each="song : ${song}">
+
+                <td>
+                    <span><img th:src="${song.album.albumArtUrl}" alt="" width="40"/></span>
+                    <a th:href="'/album/'+ @{${song.album.id}}" th:text="${song.songTitle}"></a>
+
+                </td>
+                <td>
+                    <span class="pull-right col-md-offset-3" th:text="${song.album.albumTitle}"></span>
+
+                </td>
+                <td>
+                    <span class="pull-right" th:text="${song.genre}"></span>
+
+                </td>
+                <td>
                     <span class="pull-right" th:include="modals :: songEditButton"></span>
                     <span class="pull-right" th:include="modals :: songDeleteButton"></span>
-                </div>
-                <hr/>
-            </div>
-        </div>
+                </td>
+            </tr>
+        </table>
 
+        <hr/>
     </div>
+
+
+
+</div>
+
+
 
 <div th:include="modals :: modalEditBand"></div>
 
 <div th:include="modals :: modalDeleteBand"></div>
 
-<div th:include="modals :: modalEditAlbum"></div>
 
-<div th:include="modals :: modalDeleteAlbum"></div>
 
 <div th:include="modals :: modalEditSong"></div>
 

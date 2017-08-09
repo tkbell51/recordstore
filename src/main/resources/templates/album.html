@@ -11,19 +11,18 @@
     <div class="jumbotron">
         <h1>Albums</h1>
     </div>
-    <div class="row">
-        <div th:each="album : ${album}" class="col-md-3">
-            <div class="thumbnail">
-                <img th:src="${album.albumArtUrl}" th:alt="${album.albumTitle}"/>
-                <div class="caption">
-                    <h3 th:text="${album.albumTitle}"></h3>
-                    <!--<h4><a href="#" th:text="${album.band_title}"></a></h4>-->
-                    <p><a th:href="'/album/' + @{album.id}" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                </div>
-            </div>
+
+        <div th:each="album : ${album}" class="col-md-4" >
+
+            <a th:href="'/album/' + @{${album.id}}"><img th:src="${album.albumArtUrl}" th:alt="${album.albumTitle}"/></a>
+
+                    <h3 ><a th:href="'/album/' + @{${album.id}}" th:text="${album.albumTitle}"></a></h3>
+
+
+
         </div>
 
-    </div>
+
 </div>
 
 <div th:include="modals :: modalAlbum"></div>

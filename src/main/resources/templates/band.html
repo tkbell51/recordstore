@@ -14,9 +14,9 @@
     <div class="row">
         <div th:each="band : ${band}" class="col-md-3">
             <div class="thumbnail">
-                <img th:src="${band.bandArtUrl}" th:alt="${band.bandTitle}"/>
+                <a th:href="'/band/' + @{${band.id}}"><img th:src="${band.bandArtUrl}" th:alt="${band.bandTitle}"/></a>
                 <div class="caption">
-                    <h3 th:text="${band.bandTitle}"></h3>
+                    <h3 ><a th:href="'/band/' + @{${band.id}}" th:text="${band.bandTitle}"></a></h3>
                     <p th:text="${band.origin}"></p>
 
                 </div>

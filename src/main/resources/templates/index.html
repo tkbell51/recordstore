@@ -5,7 +5,7 @@
     <title>Record Store Home</title>
     <span th:include="includes :: css"></span>
 </head>
-<body class="home">
+<body>
 <div th:include="navbar :: nav"></div>
 <div class="container">
     <div class="jumbotron">
@@ -29,28 +29,66 @@
             </form>
 
         </div>
-        <!--<form>-->
-            <!--<div class="input-group">-->
-                <!--<input id="search-type" type="hidden" name="type" value="band" />-->
-                <!--<input type="text" class="form-control" name="search" placeholder="Search by Band" />-->
-                <!--<div class="input-group-btn">-->
-                    <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select<span class="caret"></span></button>-->
-                    <!--<ul id="test-menu" class="dropdown-menu dropdown-menu-right">-->
-                        <!--<li><a href="">Band</a></li>-->
-                        <!--<li><a href="">Album</a></li>-->
-                        <!--<li><a href="">Song</a></li>-->
-                    <!--</ul>-->
-                <!--</div>-->
 
-            <!--</div>-->
-
-
-        <!--</form>-->
 
 
     </div>
+    <div class="row">
+        <div class="page-header">
+            <h1>Bands</h1>
+        </div>
+        <div class="col-md-3" th:each="band : ${band}">
+            <a th:href="'/band/' + @{${band.id}}"><img th:src="${band.bandArtUrl}" th:alt="${band.bandTitle}" width="275"/></a>
+            <h1 ><a th:href="'/band/' + @{${band.id}}" th:text="${band.bandTitle}"></a></h1>
+            <p th:text="${band.origin}"></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="page-header">
+            <h1>Albums</h1>
+        </div>
+        <div class="col-md-3" th:each="album : ${album}">
 
+            <a th:href="'/album/' + @{${album.id}}"><img th:src="${album.albumArtUrl}" th:alt="${album.albumTitle}" width="275"/></a>
+            <h3><a th:href="'/album/' + @{${album.id}}" th:text="${album.albumTitle}" ></a></h3>
+            <p th:text="${album.releaseDate}"></p>
 
+        </div>
+    </div>
+    <div class="page-header">
+        <h1>Songs</h1>
+    </div>
+
+    <div class="" >
+        <table class="table">
+            <thead>
+            <th>Song Title</th>
+            <th >
+                <span class="pull-right col-md-offset-3">Album title</span>
+            </th>
+            <th >
+                <span class="pull-right">Genre</span>
+            </th>
+            </thead>
+            <tr th:each="song : ${song}">
+
+                <td>
+                    <a th:href="'/album/'+ @{${song.album.id}}" th:text="${song.songTitle}"></a>
+
+                </td>
+                <td>
+                    <span class="pull-right col-md-offset-3" th:text="${song.album.albumTitle}"></span>
+
+                </td>
+                <td>
+                    <span class="pull-right" th:text="${song.genre}"></span>
+
+                </td>
+            </tr>
+        </table>
+
+        <hr/>
+    </div>
 </div>
 
 <span th:include="includes :: js"></span>
@@ -61,7 +99,7 @@
         var $link = $(this);
         $('#test-button').text($link.text());
         // update hidden input also
-         $('#search-type').val($link.text())
+        $('#search-type').val($link.text())
     });
 </script>
 </body>

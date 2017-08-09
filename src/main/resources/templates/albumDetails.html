@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <span th:include="includes :: css"></span>
+</head>
+<body>
+<div th:include="navbar :: nav"></div>
+<div class="container">
+
+
+                <div th:each="album : ${album}">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a th:href="'/album/' + @{${album.id}}"><img th:src="${album.albumArtUrl}" th:alt="${album.albumTitle}"/></a>
+                            <h4 th:text="${album.releaseDate}"></h4>
+                            <span  th:include="modals :: albumEditButton"></span>
+                            <span  th:include="modals :: albumDeleteButton"></span>
+                        </div>
+                        <div class="col-md-7">
+                            <h1 th:text="${album.albumTitle}"></h1>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            <h1 class="text-right">Songs</h1>
+
+
+        <div class="" >
+            <table class="table">
+                <thead>
+                <th>Song Title</th>
+
+                <th >
+                    <span class="pull-right">Genre</span>
+                </th>
+                </thead>
+                <tr th:each="song : ${song}">
+
+                    <td>
+                        <span><img th:src="${song.album.albumArtUrl}" alt="" width="40"/></span>
+                        <a th:href="'/album/'+ @{${song.album.id}}" th:text="${song.songTitle}"></a>
+
+                    </td>
+
+                    <td>
+                        <span class="pull-right" th:text="${song.genre}"></span>
+
+                    </td>
+                    <td>
+                        <span class="pull-right" th:include="modals :: songEditButton"></span>
+                        <span class="pull-right" th:include="modals :: songDeleteButton"></span>
+                    </td>
+                </tr>
+            </table>
+
+            <hr/>
+        </div>
+
+
+    </div>
+
+
+
+
+
+<div th:each="album : ${album}">
+    <div th:include="modals :: modalEditAlbum"></div>
+
+    <div th:include="modals :: modalDeleteAlbum"></div>
+</div>
+
+<div th:each="song : ${song}">
+    <div th:include="modals :: modalEditSong"></div>
+
+    <div th:include="modals :: modalDeleteSong"></div>
+</div>
+
+
+<span th:include="includes :: js"></span>
+</body>
+</html>

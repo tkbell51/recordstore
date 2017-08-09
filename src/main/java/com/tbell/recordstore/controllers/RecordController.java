@@ -31,7 +31,14 @@ public class RecordController {
     SongRepository songRepo;
 
     @RequestMapping("/")
-    private String index(){return "index"; }
+    private String index(Model model){
+        Iterable<Band> bands = bandRepo.findAll();
+        model.addAttribute("band", bands);
+        Iterable<Album> albums = albumRepo.findAll();
+        model.addAttribute("album", albums);
+        Iterable<Song> songs = songRepo.findAll();
+        model.addAttribute("song", songs);
+        return "index"; }
 
     @RequestMapping("/search")
     private String searchPage(){ return "search";}
@@ -45,11 +52,9 @@ public class RecordController {
 
     Iterable<Album> albums = albumRepo.findAllByBand(band);
     model.addAttribute("album", albums);
-//    Iterable<Song> songs = songRepo.findAllByAlbum();
-////        for (Album album : albums)
-////              {
-////
-////        }
+
+//    Iterable<Song>albumSongs = songRepo.findAllByAlbum(albums.getId());
+//    model.addAttribute("song", albumSongs);
 
     Iterable<Song> bandSongs = songRepo.findAllByBand(band);
     model.addAttribute("song", bandSongs);
@@ -136,6 +141,7 @@ public class RecordController {
             long listId = Long.parseLong(bandId);
             Band band = bandRepo.findOne(listId);
             album.setBand(band);
+
             albumRepo.save(album);
         } catch (Exception ex){
             ex.printStackTrace();
@@ -150,15 +156,11 @@ public class RecordController {
                              @RequestParam("band")String bandId,
                              @RequestParam("album")String albumId,
                              Model model){
-        Iterable<Band> bands = bandRepo.findAll();
-        model.addAttribute("bands", bands);
-
-        Iterable<Album> albums = albumRepo.findAll();
-        model.addAttribute("albums", albums);
 
         Song song = new Song();
         song.setSongTitle(title);
         song.setGenre(genre);
+        song.setSongReleaseDate(releaseDate);
         try {
             long listId = Long.parseLong(bandId);
             Band band = bandRepo.findOne(listId);
@@ -167,6 +169,7 @@ public class RecordController {
             long albId = Long.parseLong(albumId);
             Album album = albumRepo.findOne(albId);
             song.setAlbum(album);
+
             songRepo.save(song);
         } catch (Exception ex){
             ex.printStackTrace();
@@ -178,14 +181,14 @@ public class RecordController {
     public String bandDetails(@PathVariable("bandId")long bandId,
                                Model model){
         Band band = bandRepo.findOne(bandId);
-        Iterable<Album> albums = albumRepo.findAllByBand(band);
         model.addAttribute("band", band);
+        Iterable<Album> albums = albumRepo.findAllByBand(band);
         model.addAttribute("album", albums);
         Iterable<Song> songs = songRepo.findAllByBand(band);
         model.addAttribute("song", songs);
         return "bandDetails";
     }
-    @RequestMapping(value = "/band/{bandId}/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/band/edit/{bandId}/", method = RequestMethod.POST)
     public String editBand(@PathVariable("bandId")long bandId,
                            @RequestParam("title")String title,
                            @RequestParam("origin")String origin,
@@ -199,7 +202,7 @@ public class RecordController {
         bandRepo.save(band);
         return "redirect:/band/" + bandId;
     }
-    @RequestMapping(value = "/band/{bandId}/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/band/delete/{bandId}/", method = RequestMethod.POST)
     public String deleteBand(@PathVariable("bandId")long bandId){
         Band band = bandRepo.findOne(bandId);
         bandRepo.delete(band);
@@ -209,13 +212,15 @@ public class RecordController {
     public String albumDetails(@PathVariable("albumId")long albumId,
                                Model model){
         Album album = albumRepo.findOne(albumId);
-        Iterable<Song> songs = songRepo.findAllByAlbum(albumId);
+        Iterable<Song> songs = songRepo.findAllByAlbum(album);
         model.addAttribute("album", album);
         model.addAttribute("song", songs);
+        Iterable<Band> bands = bandRepo.findAll();
+        model.addAttribute("band", bands);
         return "albumDetails";
     }
 
-    @RequestMapping(value = "/album/{albumId}/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/album/edit/{albumId}/", method = RequestMethod.POST)
     public String createAlbum(@PathVariable("albumId")long albumId,
                               @RequestParam("title")String title,
                               @RequestParam("releaseDate")Date releaseDate,
@@ -238,15 +243,15 @@ public class RecordController {
         }
         return "redirect:/album/" + albumId;
     }
-    @RequestMapping(value = "/album/{albumId}/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/album/delete/{albumId}/", method = RequestMethod.POST)
     public String deleteAlbum(@PathVariable("albumId")long albumId){
         Album album = albumRepo.findOne(albumId);
         albumRepo.delete(album);
         return "redirect:/album/";
     }
 
-    @RequestMapping(value = "/song/{songId}/edit", method = RequestMethod.POST)
-    public String createSong(@PathVariable("songId")long songId,
+    @RequestMapping(value = "/song/edit/{songId}/", method = RequestMethod.POST)
+    public String editSong(@PathVariable("songId")long songId,
                              @RequestParam("title")String title,
                              @RequestParam("genre")String genre,
                              @RequestParam("releaseDate")Date releaseDate,
@@ -255,11 +260,7 @@ public class RecordController {
                              Model model, HttpServletRequest request){
 
         String referer = request.getHeader("Referer");
-        Iterable<Band> bands = bandRepo.findAll();
-        model.addAttribute("bands", bands);
 
-        Iterable<Album> albums = albumRepo.findAll();
-        model.addAttribute("albums", albums);
 
         Song song = songRepo.findOne(songId);
         song.setSongTitle(title);
@@ -278,7 +279,7 @@ public class RecordController {
         }
         return "redirect:" + referer;
     }
-    @RequestMapping(value = "/song/{songId}/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/song/delete/{songId}/", method = RequestMethod.POST)
     public String deleteSong(@PathVariable("songId")long songId){
         Song song = songRepo.findOne(songId);
         songRepo.delete(song);
