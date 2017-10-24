@@ -43,34 +43,62 @@ public class RecordController {
     @RequestMapping("/search")
     private String searchPage(){ return "search";}
 
+
     @RequestMapping(value = "/searchBand", method = RequestMethod.POST)
     private String searchBand(@RequestParam("bandTitle")String bandTitle,
                               Model model){
 
-    Band band = bandRepo.findByBandTitle(bandTitle);
-    model.addAttribute("band", band);
 
-    Iterable<Album> albums = albumRepo.findAllByBand(band);
-    model.addAttribute("album", albums);
+      Band band = bandRepo.findByBandTitleIgnoreCaseContaining(bandTitle);
+     if(band == null){
+         model.addAttribute("error", "No results found");
+         Iterable<Band> bands = bandRepo.findAll();
+         model.addAttribute("band", bands);
+         Iterable<Album> albums = albumRepo.findAll();
+         model.addAttribute("album", albums);
+         Iterable<Song> songs = songRepo.findAll();
+         model.addAttribute("song", songs);
+         return "index";
+     } else{
+         model.addAttribute("band", band);
 
-//    Iterable<Song>albumSongs = songRepo.findAllByAlbum(albums.getId());
-//    model.addAttribute("song", albumSongs);
-
-    Iterable<Song> bandSongs = songRepo.findAllByBand(band);
-    model.addAttribute("song", bandSongs);
+         Iterable<Album> albums = albumRepo.findAllByBand(band);
+         model.addAttribute("album", albums);
 
 
-    return "searchResults" ;
+         Iterable<Song> bandSongs = songRepo.findAllByBand(band);
+         model.addAttribute("song", bandSongs);
+         return "searchResults";
+     }
+
+
+
 
     }
     @RequestMapping(value = "/searchAlbum", method = RequestMethod.POST)
     public String searchAlbum(@RequestParam("albumTitle")String albumTitle,
                               Model model){
-        Album album = albumRepo.findByAlbumTitle(albumTitle);
-        Iterable<Song> songs = songRepo.findAllByAlbum(album);
-        model.addAttribute("album", album);
-        model.addAttribute("song", songs);
-        return"searchResults";
+        Album album = albumRepo.findByAlbumTitleIgnoreCaseContaining(albumTitle);
+
+        if(album == null){
+            model.addAttribute("error", "No results found");
+            Iterable<Band> bands = bandRepo.findAll();
+            model.addAttribute("band", bands);
+            Iterable<Album> albums = albumRepo.findAll();
+            model.addAttribute("album", albums);
+            Iterable<Song> songs = songRepo.findAll();
+            model.addAttribute("song", songs);
+            return "index";
+        } else{
+            model.addAttribute("album", album);
+
+            Band band = bandRepo.findByAlbums(album);
+            model.addAttribute("band", band);
+
+            Iterable<Song> songs = songRepo.findAllByAlbum(album);
+            model.addAttribute("song", songs);
+            return "searchResults";
+        }
     }
 
 
@@ -127,7 +155,7 @@ public class RecordController {
 
     @RequestMapping(value = "/createAlbum", method = RequestMethod.POST)
     public String createAlbum(@RequestParam("title")String title,
-                             @RequestParam("releaseDate")Date releaseDate,
+                             @RequestParam("releaseDate")String releaseDate,
                              @RequestParam("albumArt")String albumArt,
                               @RequestParam("band")String bandId,
                               Model model){
@@ -152,7 +180,7 @@ public class RecordController {
     @RequestMapping(value = "/createSong", method = RequestMethod.POST)
     public String createSong(@RequestParam("title")String title,
                              @RequestParam("genre")String genre,
-                             @RequestParam("releaseDate")Date releaseDate,
+                             @RequestParam("releaseDate")String releaseDate,
                              @RequestParam("band")String bandId,
                              @RequestParam("album")String albumId,
                              Model model){
@@ -223,7 +251,7 @@ public class RecordController {
     @RequestMapping(value = "/album/edit/{albumId}/", method = RequestMethod.POST)
     public String createAlbum(@PathVariable("albumId")long albumId,
                               @RequestParam("title")String title,
-                              @RequestParam("releaseDate")Date releaseDate,
+                              @RequestParam("releaseDate")String releaseDate,
                               @RequestParam("albumArt")String albumArt,
                               @RequestParam("band")String bandId,
                               Model model){
@@ -254,7 +282,7 @@ public class RecordController {
     public String editSong(@PathVariable("songId")long songId,
                              @RequestParam("title")String title,
                              @RequestParam("genre")String genre,
-                             @RequestParam("releaseDate")Date releaseDate,
+                             @RequestParam("releaseDate")String releaseDate,
                              @RequestParam("band")String bandId,
                              @RequestParam("album")String albumId,
                              Model model, HttpServletRequest request){
@@ -265,6 +293,8 @@ public class RecordController {
         Song song = songRepo.findOne(songId);
         song.setSongTitle(title);
         song.setGenre(genre);
+        song.setSongReleaseDate(releaseDate);
+
         try {
             long listId = Long.parseLong(bandId);
             Band band = bandRepo.findOne(listId);

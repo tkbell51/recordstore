@@ -2,15 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>Bell Records</title>
     <span th:include="includes :: css"></span>
 </head>
 <body>
 <div th:include="navbar :: nav"></div>
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
-            <div  th:each="band : ${band}">
+        <div class=" col-md-3">
+            <div class="bandSearch"  th:each="band : ${band}">
                 <a th:href="'/band/' + @{${band.id}}"><img th:src="${band.bandArtUrl}" th:alt="${band.bandTitle}" width="250"/></a>
                 <h1 th:text="${band.bandTitle}"></h1>
                 <p th:text="${band.origin}"></p>
@@ -24,7 +24,7 @@
 
                 <div class="row" th:each="album : ${album}">
                     <div class="col-md-3">
-            <a th:href="'/album/' + @{${album.id}}"><img th:src="${album.albumArtUrl}" th:alt="${album.albumTitle}"/></a>
+            <a th:href="'/album/' + @{${album.id}}"><img th:src="${album.albumArtUrl}" th:alt="${album.albumTitle}" width="200"/></a>
             <h3 th:text="${album.albumTitle}"></h3>
             <p th:text="${album.releaseDate}"></p>
                     </div>
@@ -38,7 +38,7 @@
                                 <span class="pull-right">Genre</span>
                             </th>
                             </thead>
-                            <tr th:each="songs : ${song}">
+                            <tr th:each="songs : ${album.songs}">
 
                                 <td>
 
@@ -68,6 +68,7 @@
     </div>
     <table class="table">
         <thead>
+        <th></th>
         <th>Song Title</th>
         <th >
             <span class="pull-right col-md-offset-3">Album title</span>
@@ -79,7 +80,9 @@
         <tr th:each="song : ${song}">
 
             <td>
-                <span><img th:src="${song.album.albumArtUrl}" alt="" width="40"/></span>
+                <span><img th:src="${song.album.albumArtUrl}" alt="" width="80"/></span>
+            </td>
+            <td>
                 <a th:href="'/album/'+ @{${song.album.id}}" th:text="${song.songTitle}"></a>
 
             </td>

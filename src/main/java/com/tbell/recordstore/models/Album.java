@@ -14,7 +14,7 @@ public class Album {
     private String albumTitle;
     private int albumOrder;
     private String albumArtUrl;
-    private Date releaseDate;
+    private String releaseDate;
 
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
     private List<Song> songs;
@@ -57,11 +57,11 @@ public class Album {
         this.albumArtUrl = albumArtUrl;
     }
 
-    public Date getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 

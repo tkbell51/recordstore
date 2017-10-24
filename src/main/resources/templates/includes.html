@@ -2,18 +2,30 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>Bell Records</title>
     <span th:fragment="css">
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{css/styles.css}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     </span>
 </head>
 <body>
 
 
 <span th:fragment="js">
+        <a data-toggle="tooltip" data-placement="top" title="Top of Page" class="btn btn-primary btn-lg" role="button" style="position:fixed;bottom:20px;right:20px;width: 50px;
+  height: 50px;
+  padding: 16px 16px;
+
+  border-radius: 50%;
+  " href="#top"><span style="font-size: 18px;" class="glyphicon glyphicon-menu-up" aria-hidden="true"></span></a>
+
         <script type="" th:src="@{/webjars/jquery/1.11.1/jquery.js}"></script>
         <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
     </span>
 </body>
 </html>

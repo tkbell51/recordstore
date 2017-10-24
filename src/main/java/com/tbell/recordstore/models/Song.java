@@ -12,7 +12,7 @@ public class Song {
     private long id;
     private String songTitle;
     private String genre;
-    private Date songReleaseDate;
+    private String songReleaseDate;
 
     @ManyToOne
     @JoinColumn(name = "album_id")
@@ -64,11 +64,11 @@ public class Song {
         this.band = band;
     }
 
-    public Date getSongReleaseDate() {
+    public String getSongReleaseDate() {
         return songReleaseDate;
     }
 
-    public void setSongReleaseDate(Date songReleaseDate) {
+    public void setSongReleaseDate(String songReleaseDate) {
         this.songReleaseDate = songReleaseDate;
     }
 }

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>Bell Records</title>
     <span th:include="includes :: css"></span>
 </head>
 <body>
@@ -14,7 +14,7 @@
     <div class="row">
         <div th:each="band : ${band}" class="col-md-3">
             <div class="thumbnail">
-                <a th:href="'/band/' + @{${band.id}}"><img th:src="${band.bandArtUrl}" th:alt="${band.bandTitle}"/></a>
+                <a th:href="'/band/' + @{${band.id}}" ><img th:src="${band.bandArtUrl}" th:alt="${band.bandTitle}" /></a>
                 <div class="caption">
                     <h3 ><a th:href="'/band/' + @{${band.id}}" th:text="${band.bandTitle}"></a></h3>
                     <p th:text="${band.origin}"></p>

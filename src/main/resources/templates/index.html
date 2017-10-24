@@ -2,20 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Record Store Home</title>
+    <title>Bell Records</title>
     <span th:include="includes :: css"></span>
 </head>
 <body>
 <div th:include="navbar :: nav"></div>
 <div class="container">
     <div class="jumbotron">
-        <h1>Welcome to Bell Records</h1>
+        <h1 class="text-center">Welcome to Bell Records</h1>
+
         <div class="row">
+
             <form th:action="@{/searchBand}" class="col-md-6" method="post">
                 <div class="input-group">
                     <input name="bandTitle" type="text" class="form-control"/>
                     <div class="input-group-btn">
-                        <button class="btn" type="submit">Search Band</button>
+                        <button class="btn btn-primary" type="submit">Search Band</button>
                     </div>
                 </div>
             </form>
@@ -23,10 +25,11 @@
                 <div class="input-group">
                     <input name="albumTitle" type="text" class="form-control"/>
                     <div class="input-group-btn">
-                        <button class="btn" type="submit">Search Album</button>
+                        <button class="btn btn-primary" type="submit">Search Album</button>
                     </div>
                 </div>
             </form>
+            <div style="color: red;font-size:2em; padding-left:25px;" th:text="${error}"></div>
 
         </div>
 
@@ -38,9 +41,9 @@
             <h1>Bands</h1>
         </div>
         <div class="col-md-3" th:each="band : ${band}">
-            <a th:href="'/band/' + @{${band.id}}"><img th:src="${band.bandArtUrl}" th:alt="${band.bandTitle}" width="275"/></a>
+            <a th:href="'/band/' + @{${band.id}}"><img th:src="${band.bandArtUrl}" th:alt="${band.bandTitle}" width="225"/></a>
             <h1 ><a th:href="'/band/' + @{${band.id}}" th:text="${band.bandTitle}"></a></h1>
-            <p th:text="${band.origin}"></p>
+            <h4 th:text="${band.origin}"></h4>
         </div>
     </div>
     <div class="row">
@@ -49,9 +52,9 @@
         </div>
         <div class="col-md-3" th:each="album : ${album}">
 
-            <a th:href="'/album/' + @{${album.id}}"><img th:src="${album.albumArtUrl}" th:alt="${album.albumTitle}" width="275"/></a>
+            <a th:href="'/album/' + @{${album.id}}"><img th:src="${album.albumArtUrl}" th:alt="${album.albumTitle}" width="225"/></a>
             <h3><a th:href="'/album/' + @{${album.id}}" th:text="${album.albumTitle}" ></a></h3>
-            <p th:text="${album.releaseDate}"></p>
+            <h4 th:text="${album.releaseDate}"></h4>
 
         </div>
     </div>

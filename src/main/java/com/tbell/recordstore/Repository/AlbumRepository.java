@@ -10,13 +10,11 @@ import java.util.List;
 
 @Repository
 public interface AlbumRepository extends CrudRepository<Album,Long> {
-    Album findByAlbumTitle(String albumTitle);
-
+    Album findByAlbumTitleIgnoreCaseContaining(String albumTitle);
 
 
     List<Album> findAllByBand(Band band);
 
     Album findByBand(Band band);
 
-//    Iterable<Song> findAllSongs(Iterable<Album> albums);
 }
